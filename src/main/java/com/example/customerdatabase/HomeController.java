@@ -27,17 +27,19 @@ public class HomeController {
 
     @RequestMapping("/addCompany")
     public String addCompany(Model model){
-        model.addAttribute("company",new Employer());
+        model.addAttribute("employer",new Employer());
         model.addAttribute("companyAdd","");
-        return "addCompany";
+        return "addingCompany";
     }
 
     @PostMapping("/processCompany")
-    public String processCompany(@ModelAttribute Employer company, HttpServletRequest request, Model model){
-        companyRepository.save(company);
-        String companyName = request.getParameter("companyTitle");
-        model.addAttribute("companyAdd","You added "+ companyName + " to the company table.");
-        return "addCompany";
+    public String processCompany(@ModelAttribute Employer employer, Model model){
+
+        companyRepository.save(employer);
+
+        model.addAttribute("companyAdd","You added "+ employer.getCompany() + " to the company table.");
+
+        return "addingCompany";
     }
 
     @RequestMapping("/addCustomer")
@@ -52,17 +54,14 @@ public class HomeController {
     }
 
     @PostMapping("/processCustomer")
-    public String processCustomer(@ModelAttribute Customer customer, Model model, HttpServletRequest request){
+    public String processCustomer(@ModelAttribute Customer customer, Model model){
 
         customerRepository.save(customer);
 
-        String firstName = request.getParameter("customerFirstName");
-        String lastName = request.getParameter("customerLastName");
-
         model.addAttribute("companyRepo", companyRepository.findAll());
 
-        model.addAttribute("customerAdd", "You added "+ firstName +" "+lastName + " to the customer table");
-        return "addCompany";
+        model.addAttribute("customerAdd", "You added "+ customer.getFirstname() +" "+customer.getLastname() + " to the customer table");
+        return "addCustomer";
     }
 
     @PostMapping("/lastname")
