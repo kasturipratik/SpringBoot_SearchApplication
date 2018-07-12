@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container p-5">
+        <div th:replace="base :: navlinks"></div>
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <form class=" my-2 my-lg-0 jumbotron" action="/lastname" method="post">
@@ -35,6 +36,7 @@
     </div>
 <!--finding by customer last name-->
     <div class="container p-5 mt-2" th:if="${count &gt; 0}">
+        <p th:text="${searchString}"></p>
         <table class="table">
             <thead>
                 <tr>
@@ -61,12 +63,14 @@
         </table>
     </div>
     <div class="container p-5 -mt-3" th:if="${count}==0 ">
+        <p th:text="${searchString}"></p>
         <h4 th:text="${message}"></h4>
     </div>
 
 <!--finding by customer city location-->
 
     <div class="container p-5 mt-2" th:if="${cityCount &gt; 0}">
+        <p th:text="${searchCity}"></p>
         <table class="table">
             <thead>
             <tr>
@@ -82,7 +86,7 @@
             <tr th:each="customer :${location}">
                 <td th:text="${customer.title}"></td>
                 <td th:inline="text">[[${customer.firstname}]] [[${customer.lastname}]]</td>
-                <td th:text="${customer.company.Company}"></td>
+                <td th:text="${customer.company.company}"></td>
                 <td th:text="${customer.position}"></td>
                 <td th:text="${customer.emailaddress}"></td>
             </tr>
@@ -90,7 +94,29 @@
         </table>
     </div>
     <div class="container p-5 -mt-3" th:if="${cityCount}==0 ">
+        <p th:text="${searchCity}"></p>
         <h4 th:text="${notfound}"></h4>
     </div>
+<!--top 10 employers with employee number-->
+    <div class="container p-5 mt-2" th:if="${employeeCount &gt; 0}">
+        <p th:text="${searchCity}"></p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Company ID</th>
+                <th>Company</th>
+                <th>Employee Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer :${employee}">
+                <td th:text="${customer.company. companyID}"></td>
+                <td th:text="${customer.company.Company}"></td>
+                <td th:text="${employeeCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>

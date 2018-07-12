@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Company {
+public class Employer {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long companyID;
 
-    private String Company;
+    private String company;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "employer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Customer> customers;
 
     public long getCompanyID() {
@@ -25,11 +25,11 @@ public class Company {
     }
 
     public String getCompany() {
-        return Company;
+        return company;
     }
 
     public void setCompany(String company) {
-        Company = company;
+        company = company;
     }
 
     public Set<Customer> getCustomers() {

@@ -1,12 +1,11 @@
 package com.example.customerdatabase;
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long id;
 
     private String title;
@@ -21,7 +20,7 @@ public class Customer {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name ="CompanyID")
-    private Company company;
+    private Employer employer;
 
     public long getId() {
         return id;
@@ -103,11 +102,11 @@ public class Customer {
         this.zipcode = zipcode;
     }
 
-    public Company getCompany() {
-        return company;
+    public Employer getEmployer() {
+        return employer;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
     }
 }
