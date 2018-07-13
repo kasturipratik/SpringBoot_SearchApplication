@@ -68,6 +68,7 @@ public class HomeController {
     public String processLastNameSearch(HttpServletRequest request, Model model){
         String searchLastName = request.getParameter("lastname");
         model.addAttribute("searchString", "You searched for " + searchLastName);
+        model.addAttribute("zipcodes",customerRepository.findAll());
         model.addAttribute("customers", customerRepository.findByLastnameIgnoreCase(searchLastName));
         List<Customer> cust = customerRepository.findByLastnameIgnoreCase(searchLastName);
         model.addAttribute("cityCount", -1);
@@ -91,6 +92,7 @@ public class HomeController {
         model.addAttribute("count", -1);
         model.addAttribute("zipCount", -1);
         model.addAttribute("searchCity", "You searched for " + searchCity);
+        model.addAttribute("zipcodes",customerRepository.findAll());
         List<Customer> cust =  customerRepository.findByCityIgnoreCase(searchCity);
         model.addAttribute("cityCount", cust.size());
         if(cust.size() >0)
@@ -110,6 +112,7 @@ public class HomeController {
         model.addAttribute("count", -1);
         model.addAttribute("cityCount", -1);
         model.addAttribute("searchZip", "You searched for " + zip);
+        model.addAttribute("zipcodes",customerRepository.findAll());
         List<Customer> cust = customerRepository.findByZipcode(zip);
         model.addAttribute("zipCount", cust.size());
         if(cust.size() >0)

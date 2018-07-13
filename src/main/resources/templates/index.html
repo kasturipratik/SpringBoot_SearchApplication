@@ -17,7 +17,7 @@
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="lastname"/>
                     <div class="mt-3" >
                         <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-secondary my-2 my-sm-0" href="/">Try Again</a>
+
                     </div>
                 </form>
             </div>
@@ -27,21 +27,21 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="city"/>
                     <div class="mt-3" >
                         <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
-                        <a class="btn btn-secondary my-2 my-sm-0" href="/">Try Again</a>
+
                     </div>
                 </form>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-sm-12 col-md-6">
-                <form class="form-group" action="/searchZipcode" method="post">
+                <form class="form-group jumbotron" action="/searchZipcode" method="post">
                     <label class="font-weight-bold">Search Customers By Zip Code</label>
                     <select name="zipInput" class="form-control">
                         <option th:each="zip :${zipcodes}" th:text="${zip.zipcode}" ></option>
                     </select>
                     <div class="mt-3" >
                         <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
-                        <a href="/" class="btn btn-warning my-2 my-sm-0">New Search</a>
+
                     </div>
                 </form>
             </div>
@@ -113,7 +113,7 @@
     </div>
     <!--search by zipcode-->
     <div class="container p-5 mt-2" th:if="${zipCount &gt; 0}">
-        <p th:text="${searchCity}"></p>
+        <p th:text="${searchZip}"></p>
         <table class="table">
             <thead>
             <tr>
@@ -136,10 +136,7 @@
             </tbody>
         </table>
     </div>
-    <div class="container p-5 -mt-3" th:if="${zipCount}==0 ">
-        <p th:text="${searchZip}"></p>
-        <h4 th:text="${norecord}"></h4>
-    </div>
+
 <!--top 10 employers with employee number-->
 <!--    <div class="container p-5 mt-2" th:if="${employeeCount &gt; 0}">
         <p th:text="${searchCity}"></p>
