@@ -21,7 +21,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String index(Model model){
-
+        model.addAttribute("zipcodes",customerRepository.findAll());
         return "index";
     }
 
@@ -33,7 +33,7 @@ public class HomeController {
     }
 
     @PostMapping("/processCompany")
-    public String processCompany(@ModelAttribute Employer employer, Model model){
+    public String processCompany(@ModelAttribute("employer") Employer employer, Model model){
 
         companyRepository.save(employer);
 
@@ -69,9 +69,9 @@ public class HomeController {
         String searchLastName = request.getParameter("lastname");
         model.addAttribute("searchString", "You searched for " + searchLastName);
         model.addAttribute("customers", customerRepository.findByLastnameIgnoreCase(searchLastName));
-        model.addAttribute("employeeCount", 0);
         List<Customer> cust = customerRepository.findByLastnameIgnoreCase(searchLastName);
         model.addAttribute("cityCount", -1);
+        model.addAttribute("zipCount", -1);
         model.addAttribute("count", cust.size());
         if(cust.size() >0)
         {
@@ -89,7 +89,7 @@ public class HomeController {
 
         String searchCity = request.getParameter("city");
         model.addAttribute("count", -1);
-        model.addAttribute("employeeCount", 0);
+        model.addAttribute("zipCount", -1);
         model.addAttribute("searchCity", "You searched for " + searchCity);
         List<Customer> cust =  customerRepository.findByCityIgnoreCase(searchCity);
         model.addAttribute("cityCount", cust.size());
@@ -104,9 +104,23 @@ public class HomeController {
         }
     }
 
-  /*  @PostMapping("/employeeCount")
-    public String processEmployeeCount(Model model){
-        model.addAttribute("employeeCount",customerRepository.countCustomerByCompany());
-        return "index";
-    }*/
+    @PostMapping("/searchZipcode")
+    public String processZipcode(Model model, HttpServletRequest request){
+        int zip = Integer.parseInt(request.getParameter("zipInput"));
+        model.addAttribute("count", -1);
+        model.addAttribute("cityCount", -1);
+        model.addAttribute("searchZip", "You searched for " + zip);
+        List<Customer> cust = customerRepository.findByZipcode(zip);
+        model.addAttribute("zipCount", cust.size());
+        if(cust.size() >0)
+        {
+            model.addAttribute("zipCode", cust);
+            return "index";
+        }
+        else {
+            model.addAttribute("norecord", "No record Found");
+            return "index";
+        }
+
+    }
 }

@@ -32,6 +32,20 @@
                 </form>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <form class="form-group" action="/searchZipcode" method="post">
+                    <label class="font-weight-bold">Search Customers By Zip Code</label>
+                    <select name="zipInput" class="form-control">
+                        <option th:each="zip :${zipcodes}" th:text="${zip.zipcode}" ></option>
+                    </select>
+                    <div class="mt-3" >
+                        <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
+                        <a href="/" class="btn btn-warning my-2 my-sm-0">New Search</a>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </div>
 <!--finding by customer last name-->
@@ -86,7 +100,7 @@
             <tr th:each="customer :${location}">
                 <td th:text="${customer.title}"></td>
                 <td th:inline="text">[[${customer.firstname}]] [[${customer.lastname}]]</td>
-                <td th:text="${customer.company.company}"></td>
+                <td th:text="${customer.employer.company}"></td>
                 <td th:text="${customer.position}"></td>
                 <td th:text="${customer.emailaddress}"></td>
             </tr>
@@ -97,8 +111,37 @@
         <p th:text="${searchCity}"></p>
         <h4 th:text="${notfound}"></h4>
     </div>
+    <!--search by zipcode-->
+    <div class="container p-5 mt-2" th:if="${zipCount &gt; 0}">
+        <p th:text="${searchCity}"></p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Full Name</th>
+                <th>Company</th>
+                <th>Position</th>
+                <th>Email</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer :${zipCode}">
+                <td th:text="${customer.title}"></td>
+                <td th:inline="text">[[${customer.firstname}]] [[${customer.lastname}]]</td>
+                <td th:text="${customer.employer.company}"></td>
+                <td th:text="${customer.position}"></td>
+                <td th:text="${customer.emailaddress}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container p-5 -mt-3" th:if="${zipCount}==0 ">
+        <p th:text="${searchZip}"></p>
+        <h4 th:text="${norecord}"></h4>
+    </div>
 <!--top 10 employers with employee number-->
-    <div class="container p-5 mt-2" th:if="${employeeCount &gt; 0}">
+<!--    <div class="container p-5 mt-2" th:if="${employeeCount &gt; 0}">
         <p th:text="${searchCity}"></p>
         <table class="table">
             <thead>
@@ -116,7 +159,7 @@
             </tr>
             </tbody>
         </table>
-    </div>
-
+    </div>-->
+<div th:replace="base :: scripts"></div>
 </body>
 </html>
