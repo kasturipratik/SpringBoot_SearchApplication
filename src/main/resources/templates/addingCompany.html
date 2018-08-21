@@ -11,12 +11,12 @@
     <div class="container">
         <div th:replace="base :: navlinks"></div>
         <h2>Add a Company</h2>
-        <form class="form-group" th:action="@{/processCompany}" th:object="${employer}" method="post" action="#">
+        <form class="form-group" th:action="@{/processCompany}" th:object="${employer}" method="post" >
             <div class="row">
-                <input type="hidden" th:field="*{companyID}"/>
+                <input type="hidden" th:field="*{companyID}" />
                 <div class="col-md-6 col-sm-12 mt-2">
                     <label>Company Name</label>
-                    <input type="text" th:field="*{company}" placeholder="Company Name" class="form-control" name="companyTitle">
+                    <input type="text" th:field="*{company}" placeholder="Company Name" class="form-control" required/>
                 </div>
                 <div class="col-md-6 col-sm-0">
 

@@ -1,8 +1,10 @@
 package com.example.customerdatabase;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +35,9 @@ public class HomeController {
     }
 
     @PostMapping("/processCompany")
-    public String processCompany(@ModelAttribute("employer") Employer employer, Model model){
-
+    public String processCompany(@ModelAttribute Employer employer, Model model){
+        //long id = Long.parseLong(request.getParameter("id"));
+        //String employerName = request.getParameter("companyTitle");
         companyRepository.save(employer);
 
         model.addAttribute("companyAdd","You added "+ employer.getCompany() + " to the company table.");

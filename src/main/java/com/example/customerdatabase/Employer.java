@@ -6,7 +6,6 @@ import java.util.Set;
 @Entity
 public class Employer {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long companyID;
@@ -29,7 +28,7 @@ public class Employer {
     }
 
     public void setCompany(String company) {
-        company = company;
+        this.company = company;
     }
 
     public Set<Customer> getCustomers() {
